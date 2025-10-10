@@ -1,0 +1,173 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, rgb(233, 236, 239), rgb(244, 247, 250));
+    color: rgb(51, 51, 51);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor-registro {
+    background: rgb(244, 247, 250);
+    padding: 2.5em 2em 2em 2em;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(0, 123, 255, 0.10), 0 1.5px 8px rgba(0,0,0,0.04);
+    max-width: 370px;
+    width: 100%;
+    margin: 2em auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1.5px solid rgb(233, 236, 239);
+    transition: box-shadow 0.3s, border 0.3s;
+    animation: aparecer 0.7s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(30px);}
+    to   { opacity: 1; transform: translateY(0);}
+}
+
+.contenedor-registro:hover {
+    border: 2.5px solid #007bff;
+    box-shadow: 0 12px 40px rgba(0,123,255,0.13), 0 2px 12px rgba(0,0,0,0.06);
+}
+
+h2 {
+    color: #222;
+    margin-bottom: 1.5em;
+    font-size: 2em;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.grupo-entrada {
+    width: 100%;
+    margin-bottom: 1.3em;
+}
+
+.campo-con-icono {
+    position: relative;
+}
+
+.icono-input {
+    position: absolute;
+    left: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.2em;
+    height: 1.2em;
+    fill: #adb5bd;
+    pointer-events: none;
+}
+.campo-con-icono input {
+    padding-left: 2.5em;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #343a40;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] { 
+    width: 100%;
+    padding: 0.8em 1em;
+    border: 1.5px solid #cfd8dc;
+    border-radius: 7px;
+    font-size: 1.08em;
+    background: #f8fafc;
+    transition: border 0.2s, background 0.2s;
+    box-sizing: border-box;
+    color: #222;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+    border: 2px solid #007bff;
+    outline: none;
+    background: #fff;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 1em 0;
+    background: rgb(0, 123, 255);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 1.13em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.10);
+    letter-spacing: 0.5px;
+}
+
+button[type="submit"]:hover {
+    background: rgb(0, 86, 179);
+    box-shadow: 0 4px 16px rgba(0,123,255,0.13);
+}
+
+.mensaje-error {
+    color: #d90429;
+    font-size: 0.98em;
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
+    display: none;
+    text-align: left;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.enlaces {
+    margin-top: 1.2em;
+    text-align: center;
+    font-size: 1em;
+    color: #888;
+}
+
+.enlaces a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 0.4em;
+    transition: color 0.2s;
+    font-weight: 600;
+}
+
+.enlaces a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.enlaces span {
+    color: #adb5bd;
+    font-weight: 500;
+    margin: 0 0.2em;
+}
+
+@media (max-width: 480px) {
+    .contenedor-registro {
+        padding: 1.5em 0.7em 1.2em 0.7em;
+        max-width: 98vw;
+    }
+    h2 {
+        font-size: 1.3em;
+    }
+}
