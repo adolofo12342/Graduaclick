@@ -1,205 +1,80 @@
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(to bottom, rgb(233, 236, 239), rgb(244, 247, 250));
-            color: rgb(51, 51, 51);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .caja1 {
-            background: rgb(244, 247, 250);
-            padding: 2.5em 2em;
-            border-radius: 18px;
-            box-shadow: 0 6px 32px rgba(0, 123, 255, 0.10), 0 1.5px 8px rgba(0,0,0,0.04);
-            max-width: 400px;
-            width: 100%;
-            border: 1.5px solid rgb(233, 236, 239);
-            transition: box-shadow 0.3s, border 0.3s;
-            animation: aparecer 0.7s cubic-bezier(.4,0,.2,1);
-        }
-
-        @keyframes aparecer {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .caja1:hover {
-            border: 2.5px solid rgb(0, 123, 255);
-            box-shadow: 0 12px 40px rgba(0,123,255,0.13), 0 2px 12px rgba(0,0,0,0.06);
-        }
-
-        h2 {
-            color: rgb(34, 34, 34);
-            margin-bottom: 1.5em;
-            font-size: 2em;
-            font-weight: 800;
-            text-align: center;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        h2:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 4px;
-            background: rgb(0, 123, 255);
-            border-radius: 2px;
-        }
-
-        .opciones, .caj2 {
-            width: 100%;
-            margin-bottom: 1.5em;
-        }
-
-        .icono1, .icono3 {
-            position: relative;
-        }
-
-        .icono2, .icono4 {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgb(173, 181, 189);
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5em;
-            color: rgb(52, 58, 64);
-            font-weight: 600;
-        }
-
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 15px 15px 15px 45px;
-            border: 1.5px solid rgb(207, 216, 220);
-            border-radius: 7px;
-            font-size: 16px;
-            background: rgb(248, 250, 252);
-            transition: border 0.2s, background 0.2s;
-            color: rgb(34, 34, 34);
-        }
-
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border: 2px solid rgb(0, 123, 255);
-            outline: none;
-            background: rgb(255, 255, 255);
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
-        }
-
-        #boton {
-            width: 100%;
-            padding: 15px 0;
-            background: rgb(0, 123, 255);
-            color: rgb(255, 255, 255);
-            border: none;
-            border-radius: 7px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
-            margin-top: 1em;
-            margin-bottom: 1em;
-            box-shadow: 0 2px 8px rgba(0,123,255,0.10);
-        }
-
-        #boton:hover {
-            background: rgb(0, 86, 179);
-            box-shadow: 0 4px 16px rgba(0,123,255,0.13);
-        }
-
-        .error {
-            color: rgb(217, 4, 41);
-            font-size: 14px;
-            margin-top: 0.3em;
-            display: none;
-            text-align: left;
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .enlaces {
-            margin-top: 1.5em;
-            text-align: center;
-            font-size: 16px;
-            color: rgb(136, 136, 136);
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .enlaces a {
-            color: rgb(0, 123, 255);
-            text-decoration: none;
-            transition: color 0.2s;
-            font-weight: 600;
-        }
-
-        .enlaces a:hover {
-            color: rgb(0, 86, 179);
-            text-decoration: underline;
-        }
-
-        .separador {
-            color: rgb(173, 181, 189);
-            font-weight: 500;
-        }
-
-        .mostrar {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: rgb(108, 117, 125);
-            font-size: 16px;
-        }
-
-        .mostrar:hover {
-            color: rgb(0, 123, 255);
-        }
-
-        @media (max-width: 480px) {
-            .caja1 {
-                padding: 1.5em 1.2em;
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            const formulario = document.getElementById('formulario');
+            const usuarioInput = document.getElementById('usuario');
+            const contrasenaInput = document.getElementById('contraseña');
+            const toggleContrasenaBtn = document.getElementById('contra');
+            const errorUsuario = document.getElementById('error-usuario');
+            const errorContrasena = document.getElementById('error-contrasena');
             
-            h2 {
-                font-size: 1.7em;
-            }
+        
+            toggleContrasenaBtn.addEventListener('click', function() {
+                if (contrasenaInput.type === 'password') {
+                    contrasenaInput.type = 'text';
+                    toggleContrasenaBtn.textContent = '';
+                } else {
+                    contrasenaInput.type = 'password';
+                    toggleContrasenaBtn.textContent = '';
+                }
+            });
             
-            .enlaces {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .separador {
-                display: none;
-            }
-        }
     
+            usuarioInput.addEventListener('input', function() {
+                validarEmail(usuarioInput.value);
+            });
+            
+            contrasenaInput.addEventListener('input', function() {
+                validarContrasena(contrasenaInput.value);
+            });
+            
+            
+            formulario.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const esEmailValido = validarEmail(usuarioInput.value);
+                const esContrasenaValida = validarContrasena(contrasenaInput.value);
+                
+                if (esEmailValido && esContrasenaValida) {
+                    formulario.reset();
+                }
+            });
+            
+     
+            function validarEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (!email) {
+                    mostrarError(usuarioInput, errorUsuario, 'El correo electrónico es obligatorio');
+                    return false;
+                } else if (!regex.test(email)) {
+                    mostrarError(usuarioInput, errorUsuario, 'Por favor, introduce un correo electrónico válido');
+                    return false;
+                } else {
+                    limpiarError(usuarioInput, errorUsuario);
+                    return true;
+                }
+            }
+            
+            function validarContrasena(contrasena) {
+                if (!contrasena) {
+                    mostrarError(contrasenaInput, errorContrasena, 'La contraseña es obligatoria');
+                    return false;
+                } else if (contrasena.length < 6) {
+                    mostrarError(contrasenaInput, errorContrasena, 'La contraseña debe tener al menos 6 caracteres');
+                    return false;
+                } else {
+                    limpiarError(contrasenaInput, errorContrasena);
+                    return true;
+                }
+            }
+            
+            function mostrarError(input, elementoError, mensaje) {
+                input.style.borderColor = 'rgb(220, 53, 69)';
+                elementoError.textContent = mensaje;
+                elementoError.style.display = 'block';
+            }
+            
+            function limpiarError(input, elementoError) {
+                input.style.borderColor = 'rgb(207, 216, 220)';
+                elementoError.textContent = '';
+                elementoError.style.display = 'none';
+            }
