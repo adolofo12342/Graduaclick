@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Sistema de Titulación</title>
+    <link rel="stylesheet" href="CSS/admin.css">
+    <script src="JS/admin.js" defer></script>
+</head>
+<body>
+    <!-- Panel de Login -->
+    <div class="contenedor-inicio-sesion" aria-label="Formulario de acceso administrador">
+        <h2>
+            <svg width="28" height="28" fill="#1976d2" class="icono-admin-titulo" viewBox="0 0 24 24">
+                <path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66-5.3-4 8-4zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M20 20v-2c0-2.66-5.3-4-8-4s-8 1.34-8 4v2"/>
+            </svg>
+            Acceso Administrador
+        </h2>
+        <form id="formulario-admin" autocomplete="off" novalidate>
+            <div class="grupo-entrada campo-con-icono">
+                <label for="admin-codigo">Código de Acceso</label>
+                <span class="icono-input-contenedor">
+                    <svg class="icono-input" viewBox="0 0 24 24" fill="#1976d2">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <input type="password" id="admin-codigo" name="admin-codigo" placeholder="Ingresa el código de acceso" required class="input-con-icono">
+                </span>
+                <div class="mensaje-error" id="error-admin-codigo"></div>
+            </div>
+            <button type="submit" id="btn-admin-iniciar">Entrar al Panel</button>
+        </form>
+        <div class="enlaces">
+            <a href="p1.html">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+                Volver al inicio
+            </a>
+        </div>
+    </div>
+    
+    <!-- Panel Principal de Administración -->
+    <div id="admin-panel">
+        <!-- Header con información de sesión -->
+        <header class="admin-header">
+            <h1 class="admin-titulo">
+                <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                Panel de Administración
+            </h1>
+            <div class="admin-info">
+                <div class="admin-usuario" id="admin-usuario-activo">Administrador</div>
+                <button class="btn-cerrar-sesion" id="btn-cerrar-sesion">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <!-- Panel de Estadísticas -->
+        <section class="panel-estadisticas">
+            <h2>Resumen General</h2>
+            <div class="tarjetas-estadisticas">
+                <div class="tarjeta-estadistica">
+                    <div class="estadistica-valor" id="total-registros">0</div>
+                    <div class="estadistica-etiqueta">Total Registros</div>
+                </div>
+                <div class="tarjeta-estadistica">
+                    <div class="estadistica-valor" id="total-directa">0</div>
+                    <div class="estadistica-etiqueta">Titulación Directa</div>
+                </div>
+                <div class="tarjeta-estadistica">
+                    <div class="estadistica-valor" id="total-prototipo">0</div>
+                    <div class="estadistica-etiqueta">Prototipos</div>
+                </div>
+                <div class="tarjeta-estadistica">
+                    <div class="estadistica-valor" id="total-carreras">0</div>
+                    <div class="estadistica-etiqueta">Carreras</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Panel de Búsqueda y Filtros -->
+        <section class="panel-filtros">
+            <h2>Filtros y Búsqueda</h2>
+            <div id="filtros-admin">
+                <div>
+                    <label for="buscador-admin">Búsqueda</label>
+                    <input type="search" id="buscador-admin" placeholder="Nombre, control, correo...">
+                </div>
+                <div>
+                    <label for="filtro-turno">Turno</label>
+                    <select id="filtro-turno">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filtro-carrera">Carrera</label>
+                    <select id="filtro-carrera">
+                        <option value="">Todas</option>
+                        <option value="programación">Programación</option>
+                        <option value="puericultura">Puericultura</option>
+                        <option value="servicios de hospedaje">Servicios de Hospedaje</option>
+                        <option value="ofimática">Ofimática</option>
+                        <option value="soporte y mantenimiento">Soporte y Mantenimiento</option>
+                        <option value="contabilidad">Contabilidad</option>
+                        <option value="ventas">Ventas</option>
+                        <option value="administración de recursos humanos">Administración de Recursos Humanos</option>
+                        <option value="electrónica">Electrónica</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filtro-tipo">Tipo de Titulación</label>
+                    <select id="filtro-tipo">
+                        <option value="">Todos</option>
+                        <option value="directa">Titulación Directa</option>
+                        <option value="prototipo">Prototipo</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filtro-grupo">Grupo</label>
+                    <select id="filtro-grupo">
+                        <option value="">Todos</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Panel de Resultados -->
+        <section class="panel-resultados">
+            <h2>Registros de Estudiantes</h2>
+            <div id="reporte-admin" class="reporte-lista"></div>
+        </section>
+    </div>
+
+    <!-- Modal de Detalles -->
+    <div id="modal-detalle">
+        <div id="modal-content">
+            <div class="modal-header">
+                <h2>Detalles del Registro</h2>
+                <span class="modal-cerrar">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Contenido dinámico se insertará aquí -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-ver" id="btn-cerrar-modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

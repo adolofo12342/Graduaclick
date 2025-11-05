@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Gabriel Jair Bernal González 4Progra">
+    <meta name="keywords" content="1ra versión">
+    <meta name="description" content="Sitio web de oficina de titulación">
+    <title>GradúaClick</title>
+    <link rel="stylesheet" href="CSS/prototipo.css">
+    <script src="JS/prototipo.js"></script>
+    <script src="JS/funcionuniver.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <div class="title">Recepción de documentos para trámite de titulación por Proyecto prototipo</div>
+                <div class="subtitle">Oficina de Titulación</div>
+            </div>
+        </div>
+        
+        <form id="formPrototipo" autocomplete="off">
+            <div class="section-title">Datos personales</div>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="fecha">Fecha (Morelia, Michoacán):</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="turno">Turno:</label>
+                    <select id="turno" name="turno" required>
+                        <option value="">Seleccione turno</option>
+                        <option value="Matutino">Matutino</option>
+                        <option value="Vespertino">Vespertino</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="grupo">Grupo:</label>
+                    <input type="text" id="grupo" name="grupo" required placeholder="Ejemplo: 4A">
+                </div>
+                
+                <div class="form-group">
+                    <label for="especialidad">Especialidad:</label>
+                    <select id="especialidad" name="especialidad" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="programación">Programación</option>
+                        <option value="puericultura">Puericultura</option>
+                        <option value="servicios de hospedaje">Servicios de Hospedaje</option>
+                        <option value="ofimática">Ofimática</option>
+                        <option value="soporte y mantenimiento">Soporte y Mantenimiento</option>
+                        <option value="contabilidad">Contabilidad</option>
+                        <option value="ventas">Ventas</option>
+                        <option value="administración de recursos humanos">Administración de Recursos Humanos</option>
+                        <option value="electrónica">Electrónica</option>
+                    </select>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="nombre">Nombre completo:</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Apellido paterno Apellido materno Nombre(s)">
+                    <div class="name-hint">
+                        <span>Apellido paterno</span> <span>Apellido materno</span> <span>Nombre(s)</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="no_de_control">No. de Control:</label>
+                    <input type="text" id="no_de_control" name="no_de_control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="no_de_celular">No. de Celular:</label>
+                    <input type="tel" id="no_de_celular" name="no_de_celular" required pattern="[0-9]{10}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="no_de_tel_adicional">No. de Tel. Adicional:</label>
+                    <input type="tel" id="no_de_tel_adicional" name="no_de_tel_adicional" pattern="[0-9]{10}">
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="correo_electronico">Correo Electrónico:</label>
+                    <input type="email" id="correo_electronico" name="correo_electronico" required>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="nombre_proyecto">Nombre del Proyecto:</label>
+                    <input type="text" id="nombre_proyecto" name="nombre_proyecto" required>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="asesor">Asesor del Proyecto:</label>
+                    <input type="text" id="asesor" name="asesor" required>
+                </div>
+            </div>
+
+            <div class="section-title">Documentos a entregar</div>
+            
+            <div class="documents-list">
+                <div class="document-item">
+                    <input type="checkbox" id="actaNacimiento" name="actaNacimiento">
+                    <label for="actaNacimiento">Acta de Nacimiento</label>
+                    <input type="file" id="fileActaNacimiento" name="fileActaNacimiento" accept=".pdf,.jpg,.png" required>
+                </div>
+                
+                <div class="document-item">
+                    <input type="checkbox" id="curpDoc" name="curpDoc">
+                    <label for="curpDoc">CURP</label>
+                    <input type="file" id="fileCurp" name="fileCurp" accept=".pdf,.jpg,.png" required>
+                </div>
+                
+                <div class="document-item">
+                    <input type="checkbox" id="certificadoSecundaria" name="certificadoSecundaria">
+                    <label for="certificadoSecundaria">Certificado de Secundaria</label>
+                    <input type="file" id="fileCertificadoSecundaria" name="fileCertificadoSecundaria" accept=".pdf,.jpg,.png" required>
+                </div>
+                
+                <div class="document-item">
+                    <input type="checkbox" id="certificadoBachillerato" name="certificadoBachillerato">
+                    <label for="certificadoBachillerato">Certificado de Bachillerato</label>
+                    <input type="file" id="fileCertificadoBachillerato" name="fileCertificadoBachillerato" accept=".pdf,.jpg,.png" required>
+                </div>
+                
+                <div class="document-item">
+                    <input type="checkbox" id="cartaLiberacionPracticas" name="cartaLiberacionPracticas">
+                    <label for="cartaLiberacionPracticas">Carta de Liberación de Prácticas Profesionales</label>
+                    <input type="file" id="fileCartaLiberacionPracticas" name="fileCartaLiberacionPracticas" accept=".pdf,.jpg,.png" required>
+                </div>
+                
+                <div class="document-item">
+                    <input type="checkbox" id="constanciasCompetencia" name="constanciasCompetencia">
+                    <label for="constanciasCompetencia">5 Constancias de Competencia</label>
+                    <input type="file" id="fileConstanciasCompetencia" name="fileConstanciasCompetencia" accept=".pdf,.jpg,.png" required>
+                </div>
+                
+                <div class="document-item">
+                    <input type="checkbox" id="pagoBancomer" name="pagoBancomer">
+                    <label for="pagoBancomer">Pago generado en Bancomer (original y dos copias)</label>
+                    <input type="file" id="filePagoBancomer" name="filePagoBancomer" accept=".pdf,.jpg,.png" required>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <a href="verificacion.html" class="btn btn-secondary" id="verificarBtn">Verificar</a>
+            </div>
+            
+            <input type="hidden" name="tipo_titulacion" value="prototipo">
+        </form>
+    </div>
+
+    <script src="prototipo.js"></script>
+</body>
+</html>

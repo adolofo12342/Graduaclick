@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="CSS/iniciar sesion.css">
+    <script src="JS/iniciar sesion.js"></script>
+   
+</head>
+<body>
+    <div class="caja1" aria-label="Formulario de inicio de sesión">
+        <h2>Iniciar Sesión</h2>
+        
+        <form id="formulario" autocomplete="on" novalidate>
+            <div class="opciones">
+                <label for="usuario">Correo Gmail</label>
+                <div class="icono1">
+                    <span class="icono2">@</span>
+                    <input type="email" id="usuario" name="usuario" placeholder="tucorreo@gmail.com" required autocomplete="username">
+                </div>
+                <div class="error" id="error usuario"></div>
+            </div>
+            
+            <div class="caj2">
+                <label for="contraseña">Contraseña</label>
+                <div class="icono3">
+                    <span class="icono4">***</span>
+                    <input type="password" id="contraseña" name="contrasena" placeholder="Tu contraseña" required autocomplete="current-password">
+                    <button type="button" class="mostrar" id="contra" aria-label="Mostrar contraseña"></button>
+                </div>
+                <div class="error" id="error contrasena"></div>
+            </div>
+            
+            <button type="submit" id="boton">Iniciar Sesión</button>
+        </form>
+        
+        <div class="enlaces">
+            <a href="recuperar-contrasena.html">¿Olvidaste tu contraseña?</a>
+            <span class="separador">|</span>
+            <a href="registro.html">Registrarse</a>
+        </div>
+    </div>
+
+
+    </script>
+</body>
+</html>
