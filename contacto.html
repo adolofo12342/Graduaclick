@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Gustavo Guzmán Castillo y Gabriel Jair Bernal González">
+    <meta name="description" content="CETIs">
+    <meta name="keywords" content="documento, estructura, HTML5">
+    <title>GradúaClickContacto</title>
+    <link rel="stylesheet" href="CSS/contacto.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="JS/contacto.js"></script>
+</head>
+<body>
+<header class="mn">
+    <div class="submn">
+        <div class="lg">
+            <img src="IMG/logograduaclickAZUL.png" alt="Logo de la marca">
+            <span class="nommarca">GradúaClick</span>
+        </div>
+        <nav>
+            <ul class="lstnav">
+                <li><a href="p1.html" class="itenl"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="servicios.html" class="itenl"><i class="fas fa-cogs"></i> Servicios</a></li>
+                <li><a href="docupre.html" class="itenl"><i class="fas fa-book"></i> Documentación</a></li>
+            </ul>
+        </nav>
+     
+    </div>
+</header>
+
+<main class="contacto-main">
+  <section class="contacto-info">
+    <h2>Contáctanos</h2>
+    <p>¿Tienes alguna pregunta o Problemas con el sitio web? Completa el formulario o usa nuestras redes sociales</p>
+    <div class="redes-sociales">
+      <a href="https://x.com/Graduaclick?t=lw6bdBwiZbCKRWG_KGdJcQ&s=08" title="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.facebook.com/share/16GycwM5iz/" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/graduaclick?igsh=MWhwaGMxenpyM2IzYQ==" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="mailto:22.gustavo.guznan.castillo@cetis120.edu.mx" title="Gmail"><i class="fas fa-envelope"></i></a>
+      <a href="mailto:23.bernal.gonzalez.gabrieljair@cetis120.edu.mx" title="Gmail"><i class="fas fa-envelope"></i></a>
+    </div>
+    <iframe id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3755.8138884180944!2d-101.152345725731!3d19.720546231423967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842d11c2b43a53d3%3A0x3ae90e9bde1682a1!2sCETis%20120!5e0!3m2!1ses!2smx!4v1748955936619!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section>
+  <form class="contacto-form" id="form-contacto" action="mailto:tu_correo@gmail.com" method="POST" enctype="text/plain">
+    <label for="comentario">Comentario</label>
+    <textarea id="comentario" name="Comentario" rows="5" required placeholder="escribe tu comentario aquí"></textarea>
+    
+    <label>Califícanos</label>
+    <div class="estrellas" id="calificacion-estrellas" aria-label="Calificación por estrellas">
+      <i class="fa-regular fa-star" data-valor="1"></i>
+      <i class="fa-regular fa-star" data-valor="2"></i>
+      <i class="fa-regular fa-star" data-valor="3"></i>
+      <i class="fa-regular fa-star" data-valor="4"></i>
+      <i class="fa-regular fa-star" data-valor="5"></i>
+      <input type="hidden" name="Calificación" id="calificacion" required>
+    </div>
+    
+    <button type="submit">Enviar</button>
+    <div id="agradecimiento" class="agradecimiento" style="display:none;">
+      <i class="fa-solid fa-trophy"></i>
+      <span>¡Gracias por tu calificación!</span>
+    </div>
+  </form>
+</main>
+
+<footer class="pie-pagina">
+  &copy; 2025 GradúaClick Todos los derechos reservados.
+</footer>
+</body>
+</html>

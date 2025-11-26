@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Servicio Social</title>
+    <style>
+        /* Estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Contenedor de inicio de sesión */
+        #login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #login-container h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            color: #1976d2;
+            font-weight: 600;
+        }
+
+        /* Formularios */
+        .grupo-entrada {
+            margin-bottom: 20px;
+        }
+
+        .grupo-entrada label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .campo-con-icono {
+            position: relative;
+        }
+
+        .icono-input-contenedor {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 0 10px;
+            transition: border-color 0.3s;
+        }
+
+        .icono-input-contenedor:focus-within {
+            border-color: #1976d2;
+        }
+
+        .icono-input {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .input-con-icono {
+            border: none;
+            outline: none;
+            padding: 12px 0;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background: #1565c0;
+        }
+
+        .mensaje-error {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Panel de administración */
+        #admin-panel {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .admin-titulo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1976d2;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-usuario {
+            background: #e3f2fd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            color: #1976d2;
+        }
+
+        .btn-cerrar-sesion {
+            background: #d32f2f;
+        }
+
+        .btn-cerrar-sesion:hover {
+            background: #c62828;
+        }
+
+        /* Panel de estadísticas */
+        .panel-estadisticas {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .panel-estadisticas h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .tarjetas-estadisticas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .tarjeta-estadistica {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #1976d2;
+        }
+
+        .estadistica-valor {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 5px;
+        }
+
+        .estadistica-etiqueta {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Panel de control del sistema */
+        .panel-control {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .panel-control h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .estado-sistema {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+            margin-bottom: 20px;
+        }
+
+        .estado-sistema.inactivo {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+
+        .info-estado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .estado-texto {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .estado-sistema.inactivo .estado-texto {
+            color: #d32f2f;
+        }
+
+        .estado-periodo {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .acciones-sistema {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Panel de filtros */
+        .panel-filtros {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .panel-filtros h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .filtros-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filtros-grid > div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filtros-grid label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .filtros-grid input,
+        .filtros-grid select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Panel de resultados */
+        .panel-resultados {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .panel-resultados h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .tabla-contenedor {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .tabla-solicitudes {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tabla-solicitudes th,
+        .tabla-solicitudes td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tabla-solicitudes th {
+            background: #f5f7fa;
+            font-weight: 600;
+            color: #333;
+            position: sticky;
+            top: 0;
+        }
+
+        .tabla-solicitudes tr:hover {
+            background: #f8f9fa;
+        }
+
+        .acciones-tabla {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-ver {
+            background: #1976d2;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-eliminar {
+            background: #d32f2f;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Panel de documentos */
+        .panel-documentos {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .panel-documentos h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .configuracion-exportacion {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .configuracion-exportacion > div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .configuracion-exportacion label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .configuracion-exportacion select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .acciones-exportacion {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-exportar-excel {
+            background: #2e7d32;
+        }
+
+        .btn-exportar-excel:hover {
+            background: #1b5e20;
+        }
+
+        /* Panel de buzón */
+        .panel-buzon {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .panel-buzon h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .contenedor-mensajes {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .mensaje-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #1976d2;
+        }
+
+        .mensaje-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .mensaje-nombre {
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .mensaje-fecha {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .mensaje-asunto {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .mensaje-contenido {
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* Configuración de período */
+        .configuracion-periodo {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #1976d2;
+        }
+
+        .configuracion-periodo h3 {
+            margin-bottom: 15px;
+            color: #1976d2;
+        }
+
+        .form-fechas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-fechas > div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-fechas label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-fechas input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .acciones-periodo {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-guardar {
+            background: #4caf50;
+        }
+
+        .btn-guardar:hover {
+            background: #45a049;
+        }
+
+        .btn-cancelar {
+            background: #757575;
+        }
+
+        .btn-cancelar:hover {
+            background: #616161;
+        }
+
+        /* Modales */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .modal-header h2 {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .modal-cerrar {
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-cerrar:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .grid-detalles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .detalle-item {
+            margin-bottom: 15px;
+        }
+
+        .detalle-item label {
+            font-weight: 600;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .detalle-item span {
+            color: #555;
+            display: block;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .detalle-item-completo {
+            grid-column: 1 / -1;
+        }
+
+        /* Sin resultados */
+        .sin-resultados {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .admin-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .tarjetas-estadisticas {
+                grid-template-columns: 1fr;
+            }
+            
+            .filtros-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .configuracion-exportacion {
+                grid-template-columns: 1fr;
+            }
+            
+            .acciones-sistema,
+            .acciones-exportacion {
+                flex-direction: column;
+            }
+            
+            .form-fechas {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-detalles {
+                grid-template-columns: 1fr;
+            }
+            
+            .acciones-tabla {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SISTEMA DE LOGIN -->
+    <div id="login-container">
+        <h2> Acceso Administrador</h2>
+        <p>Ingresa el PIN de seguridad para continuar</p>
+        <div class="grupo-entrada">
+            <label for="pin-input">PIN de acceso</label>
+            <div class="campo-con-icono">
+                <div class="icono-input-contenedor">
+                    <input type="password" id="pin-input" class="input-con-icono" placeholder="Ingresa el PIN" maxlength="10">
+                </div>
+            </div>
+        </div>
+        <button id="btn-login"> Acceder al Panel</button>
+        <div id="login-error" class="mensaje-error">PIN incorrecto. Intenta nuevamente.</div>
+    </div>
+
+    <!-- PANEL DE ADMINISTRACIÓN -->
+    <div id="admin-panel" class="hidden">
+        <header class="admin-header">
+            <h1 class="admin-titulo"> Panel de Administración</h1>
+            <div class="admin-info">
+                <a href="ser.social.html" class="btn btn-cancelar">← Volver al Sistema</a>
+                <span class="admin-usuario"> Administrador</span>
+                <button id="btn-logout" class="btn btn-cerrar-sesion"> Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- Panel de Estadísticas -->
+            <section class="panel-estadisticas">
+                <h2> Estadísticas del Sistema</h2>
+                <div class="tarjetas-estadisticas">
+                    <div class="tarjeta-estadistica">
+                        <div class="estadistica-valor" id="total-solicitudes">0</div>
+                        <div class="estadistica-etiqueta">Solicitudes Totales</div>
+                    </div>
+                    <div class="tarjeta-estadistica">
+                        <div class="estadistica-valor" id="solicitudes-hoy">0</div>
+                        <div class="estadistica-etiqueta">Solicitudes Hoy</div>
+                    </div>
+                    <div class="tarjeta-estadistica">
+                        <div class="estadistica-valor" id="solicitudes-activas">0</div>
+                        <div class="estadistica-etiqueta">Solicitudes Activas</div>
+                    </div>
+                    <div class="tarjeta-estadistica">
+                        <div class="estadistica-valor" id="top-especialidad">-</div>
+                        <div class="estadistica-etiqueta">Especialidad Más Solicitada</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel de Control del Sistema -->
+            <section class="panel-control">
+                <h2> Control del Sistema</h2>
+                <div class="estado-sistema" id="estado-sistema">
+                    <div class="info-estado">
+                        <div>
+                            <div class="estado-texto" id="estado-texto"> SISTEMA ACTIVO</div>
+                            <div class="estado-periodo" id="estado-periodo">Período: 01 Ago - 30 Sep 2025</div>
+                        </div>
+                        <button id="btn-toggle-system" class="btn btn-cerrar-sesion"> Desactivar Sistema</button>
+                    </div>
+                    <button id="btn-config-period" class="btn btn-ver"> Configurar Período</button>
+                </div>
+
+                <!-- Configuración de Período -->
+                <div id="config-periodo" class="configuracion-periodo hidden">
+                    <h3> Configurar Período de Solicitudes</h3>
+                    <div class="form-fechas">
+                        <div>
+                            <label for="fecha-inicio-periodo">Fecha de Inicio</label>
+                            <input type="date" id="fecha-inicio-periodo" class="form-control">
+                        </div>
+                        <div>
+                            <label for="fecha-fin-periodo">Fecha de Fin</label>
+                            <input type="date" id="fecha-fin-periodo" class="form-control">
+                        </div>
+                    </div>
+                    <div class="acciones-periodo">
+                        <button id="btn-guardar-periodo" class="btn btn-guardar"> Guardar Período</button>
+                        <button id="btn-cancelar-periodo" class="btn btn-cancelar"> Cancelar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel de Gestión de Solicitudes -->
+            <section class="panel-filtros">
+                <h2> Gestión de Solicitudes</h2>
+                <div class="filtros-grid">
+                    <div>
+                        <label for="filtro-especialidad">Especialidad</label>
+                        <select id="filtro-especialidad" class="filter-select">
+                            <option value="">Todas las especialidades</option>
+                            <option value="programación">Programación</option>
+                            <option value="puericultura">Puericultura</option>
+                            <option value="servicios de hospedaje">Servicios de Hospedaje</option>
+                            <option value="ofimática">Ofimática</option>
+                            <option value="soporte y mantenimiento">Soporte y Mantenimiento</option>
+                            <option value="contabilidad">Contabilidad</option>
+                            <option value="ventas">Ventas</option>
+                            <option value="administración de recursos humanos">Administración de Recursos Humanos</option>
+                            <option value="electrónica">Electrónica</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filtro-turno">Turno</label>
+                        <select id="filtro-turno" class="filter-select">
+                            <option value="">Todos los turnos</option>
+                            <option value="Matutino">Matutino</option>
+                            <option value="Vespertino">Vespertino</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filtro-gobierno">Tipo de Gobierno</label>
+                        <select id="filtro-gobierno" class="filter-select">
+                            <option value="">Todos los tipos</option>
+                            <option value="Federal">Federal</option>
+                            <option value="Estatal">Estatal</option>
+                            <option value="Municipal">Municipal</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="buscar-admin">Buscar</label>
+                        <input type="text" id="buscar-admin" class="search-input" placeholder="Nombre o número de control">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel de Resultados -->
+            <section class="panel-resultados">
+                <div class="tabla-contenedor">
+                    <table class="tabla-solicitudes">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre Completo</th>
+                                <th>N. Control</th>
+                                <th>Especialidad</th>
+                                <th>Turno</th>
+                                <th>Institución</th>
+                                <th>Tipo Gobierno</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpo-tabla-solicitudes">
+                            <tr>
+                                <td colspan="9" class="sin-resultados">No hay solicitudes para mostrar</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Panel de Documentos -->
+            <section class="panel-documentos">
+                <h2> Generación de Listados</h2>
+                <div class="configuracion-exportacion">
+                    <div>
+                        <label for="listado-especialidad">Especialidad</label>
+                        <select id="listado-especialidad" class="form-control">
+                            <option value="">Todas las especialidades</option>
+                            <option value="programación">Programación</option>
+                            <option value="puericultura">Puericultura</option>
+                            <option value="servicios de hospedaje">Servicios de Hospedaje</option>
+                            <option value="ofimática">Ofimática</option>
+                            <option value="soporte y mantenimiento">Soporte y Mantenimiento</option>
+                            <option value="contabilidad">Contabilidad</option>
+                            <option value="ventas">Ventas</option>
+                            <option value="administración de recursos humanos">Administración de Recursos Humanos</option>
+                            <option value="electrónica">Electrónica</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="listado-turno">Turno</label>
+                        <select id="listado-turno" class="form-control">
+                            <option value="">Todos los turnos</option>
+                            <option value="Matutino">Matutino</option>
+                            <option value="Vespertino">Vespertino</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="listado-tipo-gobierno">Tipo de Gobierno</label>
+                        <select id="listado-tipo-gobierno" class="form-control">
+                            <option value="">Todos los tipos</option>
+                            <option value="Federal">Federal</option>
+                            <option value="Estatal">Estatal</option>
+                            <option value="Municipal">Municipal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="acciones-exportacion">
+                    <button id="btn-generar-excel" class="btn btn-exportar-excel"> Exportar a Excel</button>
+                    <button id="btn-ver-listado" class="btn btn-ver"> Ver Listado</button>
+                </div>
+
+                <div id="contenedor-listado" class="tabla-contenedor hidden">
+                    <table class="tabla-solicitudes">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Apellido 1</th>
+                                <th>Apellido 2</th>
+                                <th>N. Control</th>
+                                <th>Institución</th>
+                                <th>Persona a Cargo</th>
+                                <th>Puesto</th>
+                                <th>Profesión</th>
+                                <th>Tipo Gobierno</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpo-listado">
+                            <tr>
+                                <td colspan="10" class="sin-resultados">No hay datos para mostrar</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Panel de Buzón -->
+            <section class="panel-buzon">
+                <h2> Buzón de Contacto</h2>
+                <div id="buzon-mensajes" class="contenedor-mensajes">
+                    <div class="sin-resultados">No hay mensajes en el buzón</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal para detalles -->
+    <div id="modal-detalle" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2> Detalles de Solicitud</h2>
+                <span class="modal-cerrar" id="btn-cerrar-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-detalle-body">
+                <div class="grid-detalles">
+                    <div class="detalle-item">
+                        <label>Nombre Completo</label>
+                        <span id="detalle-nombre">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Número de Control</label>
+                        <span id="detalle-control">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>CURP</label>
+                        <span id="detalle-curp">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Especialidad</label>
+                        <span id="detalle-especialidad">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Turno</label>
+                        <span id="detalle-turno">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Grupo</label>
+                        <span id="detalle-grupo">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Institución</label>
+                        <span id="detalle-institucion">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Persona a Cargo</label>
+                        <span id="detalle-persona">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Puesto</label>
+                        <span id="detalle-puesto">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Profesión</label>
+                        <span id="detalle-profesion">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Tipo de Gobierno</label>
+                        <span id="detalle-gobierno">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <label>Período</label>
+                        <span id="detalle-periodo">-</span>
+                    </div>
+                    <div class="detalle-item detalle-item-completo">
+                        <label>Actividades</label>
+                        <span id="detalle-actividades">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        // CONFIGURACIÓN DEL SISTEMA
+        const CONFIG = {
+            sistemaActivo: true,
+            periodo: {
+                inicio: '2025-08-01',
+                fin: '2025-09-30'
+            },
+            passwordAdmin: 'admin2024'
+        };
+
+        // ESTADO DE LA APLICACIÓN
+        const estadoApp = {
+            solicitudes: [],
+            mensajes: [],
+            usuario: 'Administrador',
+            autenticado: false
+        };
+
+        // INICIALIZACIÓN
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarAutenticacion();
+            configurarEventListenersLogin();
+        });
+
+        // SISTEMA DE AUTENTICACIÓN
+        function verificarAutenticacion() {
+            const auth = localStorage.getItem('adminAuth');
+            if (auth === 'true') {
+                estadoApp.autenticado = true;
+                mostrarPanelAdmin();
+            } else {
+                mostrarLogin();
+            }
+        }
+
+        function configurarEventListenersLogin() {
+            document.getElementById('btn-login').addEventListener('click', verificarLogin);
+            
+            document.getElementById('pin-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    verificarLogin();
+                }
+            });
+        }
+
+        function verificarLogin() {
+            const pinInput = document.getElementById('pin-input');
+            const errorMsg = document.getElementById('login-error');
+            const pin = pinInput.value.trim();
+            
+            if (pin === CONFIG.passwordAdmin) {
+                estadoApp.autenticado = true;
+                localStorage.setItem('adminAuth', 'true');
+                mostrarPanelAdmin();
+            } else {
+                errorMsg.style.display = 'block';
+                pinInput.value = '';
+                pinInput.focus();
+            }
+        }
+
+        function mostrarPanelAdmin() {
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('admin-panel').classList.remove('hidden');
+            
+            inicializarAdmin();
+            cargarDatos();
+            configurarEventListeners();
+            actualizarUI();
+        }
+
+        function mostrarLogin() {
+            document.getElementById('login-container').classList.remove('hidden');
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('pin-input').focus();
+        }
+
+        function cerrarSesion() {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                estadoApp.autenticado = false;
+                localStorage.removeItem('adminAuth');
+                mostrarLogin();
+            }
+        }
+
+        // FUNCIONES DEL PANEL DE ADMINISTRACIÓN
+        function inicializarAdmin() {
+            const configGuardada = localStorage.getItem('configSistema');
+            if (configGuardada) {
+                Object.assign(CONFIG, JSON.parse(configGuardada));
+            }
+        }
+
+        function cargarDatos() {
+            // Cargar solicitudes
+            const solicitudesGuardadas = localStorage.getItem('solicitudesServicioSocial');
+            if (solicitudesGuardadas) {
+                estadoApp.solicitudes = JSON.parse(solicitudesGuardadas);
+            }
+            
+            // Cargar mensajes
+            const mensajesGuardados = localStorage.getItem('mensajesContacto');
+            if (mensajesGuardados) {
+                estadoApp.mensajes = JSON.parse(mensajesGuardados);
+                actualizarBuzon();
+            }
+            
+            cargarOpcionesFiltros();
+            actualizarEstadisticas();
+            actualizarTablaSolicitudes();
+        }
+
+        function guardarDatos() {
+            localStorage.setItem('solicitudesServicioSocial', JSON.stringify(estadoApp.solicitudes));
+            localStorage.setItem('mensajesContacto', JSON.stringify(estadoApp.mensajes));
+            localStorage.setItem('configSistema', JSON.stringify(CONFIG));
+        }
+
+        function configurarEventListeners() {
+            // Botón de logout
+            document.getElementById('btn-logout').addEventListener('click', function(e) {
+                e.preventDefault();
+                cerrarSesion();
+            });
+            
+            // Control del sistema
+            document.getElementById('btn-toggle-system').addEventListener('click', toggleSistema);
+            document.getElementById('btn-config-period').addEventListener('click', mostrarConfigPeriodo);
+            document.getElementById('btn-guardar-periodo').addEventListener('click', guardarPeriodo);
+            document.getElementById('btn-cancelar-periodo').addEventListener('click', ocultarConfigPeriodo);
+            
+            // Filtros
+            document.getElementById('filtro-especialidad').addEventListener('change', actualizarTablaSolicitudes);
+            document.getElementById('filtro-turno').addEventListener('change', actualizarTablaSolicitudes);
+            document.getElementById('filtro-gobierno').addEventListener('change', actualizarTablaSolicitudes);
+            document.getElementById('buscar-admin').addEventListener('input', actualizarTablaSolicitudes);
+            
+            // Listados
+            document.getElementById('btn-generar-excel').addEventListener('click', exportarExcel);
+            document.getElementById('btn-ver-listado').addEventListener('click', generarListado);
+            
+            // Modal
+            document.getElementById('btn-cerrar-modal').addEventListener('click', cerrarModal);
+            
+            // Cerrar modal al hacer clic fuera
+            document.getElementById('modal-detalle').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    cerrarModal();
+                }
+            });
+        }
+
+        // CONTROL DEL SISTEMA
+        function toggleSistema() {
+            CONFIG.sistemaActivo = !CONFIG.sistemaActivo;
+            guardarDatos();
+            actualizarUI();
+            
+            const mensaje = CONFIG.sistemaActivo 
+                ? ' Sistema activado correctamente' 
+                : ' Sistema desactivado correctamente';
+            
+            alert(mensaje);
+        }
+
+        function mostrarConfigPeriodo() {
+            document.getElementById('config-periodo').classList.remove('hidden');
+            document.getElementById('fecha-inicio-periodo').value = CONFIG.periodo.inicio;
+            document.getElementById('fecha-fin-periodo').value = CONFIG.periodo.fin;
+        }
+
+        function ocultarConfigPeriodo() {
+            document.getElementById('config-periodo').classList.add('hidden');
+        }
+
+        function guardarPeriodo() {
+            const inicio = document.getElementById('fecha-inicio-periodo').value;
+            const fin = document.getElementById('fecha-fin-periodo').value;
+            
+            if (!inicio || !fin) {
+                alert('❌ Por favor, complete ambas fechas');
+                return;
+            }
+            
+            if (new Date(fin) <= new Date(inicio)) {
+                alert('❌ La fecha de fin debe ser posterior a la fecha de inicio');
+                return;
+            }
+            
+            CONFIG.periodo.inicio = inicio;
+            CONFIG.periodo.fin = fin;
+            guardarDatos();
+            actualizarUI();
+            ocultarConfigPeriodo();
+            
+            alert('✅ Período actualizado correctamente');
+        }
+
+        function actualizarUI() {
+            const estadoSistema = document.getElementById('estado-sistema');
+            const estadoTexto = document.getElementById('estado-texto');
+            const estadoPeriodo = document.getElementById('estado-periodo');
+            const toggleBtn = document.getElementById('btn-toggle-system');
+            
+            if (CONFIG.sistemaActivo) {
+                estadoSistema.classList.remove('inactivo');
+                estadoTexto.textContent = ' SISTEMA ACTIVO';
+                estadoTexto.style.color = '#2e7d32';
+                toggleBtn.textContent = '⏸ Desactivar Sistema';
+                toggleBtn.className = 'btn btn-cerrar-sesion';
+            } else {
+                estadoSistema.classList.add('inactivo');
+                estadoTexto.textContent = '⏸ SISTEMA INACTIVO';
+                estadoTexto.style.color = '#d32f2f';
+                toggleBtn.textContent = ' Activar Sistema';
+                toggleBtn.className = 'btn btn-guardar';
+            }
+            
+            // Formatear período
+            const inicio = new Date(CONFIG.periodo.inicio).toLocaleDateString('es-MX', {
+                day: 'numeric', month: 'short'
+            });
+            const fin = new Date(CONFIG.periodo.fin).toLocaleDateString('es-MX', {
+                day: 'numeric', month: 'short', year: 'numeric'
+            });
+            
+            estadoPeriodo.textContent = `Período: ${inicio} - ${fin}`;
+        }
+
+        // GESTIÓN DE SOLICITUDES
+        function cargarOpcionesFiltros() {
+            const especialidades = [...new Set(estadoApp.solicitudes.map(s => s.especialidad).filter(Boolean))];
+            const filtroEspecialidad = document.getElementById('filtro-especialidad');
+            const listadoEspecialidad = document.getElementById('listado-especialidad');
+            
+            // Limpiar opciones existentes (excepto la primera)
+            while (filtroEspecialidad.children.length > 1) {
+                filtroEspecialidad.removeChild(filtroEspecialidad.lastChild);
+            }
+            while (listadoEspecialidad.children.length > 1) {
+                listadoEspecialidad.removeChild(listadoEspecialidad.lastChild);
+            }
+            
+            especialidades.forEach(esp => {
+                const option = document.createElement('option');
+                option.value = esp;
+                option.textContent = esp;
+                filtroEspecialidad.appendChild(option.cloneNode(true));
+                listadoEspecialidad.appendChild(option);
+            });
+        }
+
+        function actualizarTablaSolicitudes() {
+            const cuerpoTabla = document.getElementById('cuerpo-tabla-solicitudes');
+            const filtros = obtenerFiltros();
+
+            const solicitudesFiltradas = estadoApp.solicitudes.filter(solicitud => {
+                const coincideEspecialidad = !filtros.especialidad || solicitud.especialidad === filtros.especialidad;
+                const coincideTurno = !filtros.turno || solicitud.turno === filtros.turno;
+                const coincideGobierno = !filtros.gobierno || solicitud.tipoGobierno === filtros.gobierno;
+                const coincideBusqueda = !filtros.busqueda || 
+                    solicitud.nombre.toLowerCase().includes(filtros.busqueda) ||
+                    solicitud.numeroControl.includes(filtros.busqueda);
+
+                return coincideEspecialidad && coincideTurno && coincideGobierno && coincideBusqueda;
+            });
+
+            if (solicitudesFiltradas.length === 0) {
+                cuerpoTabla.innerHTML = '<tr><td colspan="9" class="sin-resultados">No se encontraron solicitudes</td></tr>';
+                return;
+            }
+
+            cuerpoTabla.innerHTML = solicitudesFiltradas.map((solicitud, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${solicitud.nombre} ${solicitud.primerApellido} ${solicitud.segundoApellido || ''}</td>
+                    <td>${solicitud.numeroControl}</td>
+                    <td>${solicitud.especialidad}</td>
+                    <td>${solicitud.turno}</td>
+                    <td>${solicitud.institucion}</td>
+                    <td>${solicitud.tipoGobierno}</td>
+                    <td>${solicitud.fechaSolicitud}</td>
+                    <td>
+                        <div class="acciones-tabla">
+                            <button class="btn btn-ver" onclick="verDetalles('${solicitud.id}')">
+                                 Ver
+                            </button>
+                            <button class="btn btn-eliminar" onclick="eliminarSolicitud('${solicitud.id}')">
+                                 Eliminar
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function obtenerFiltros() {
+            return {
+                especialidad: document.getElementById('filtro-especialidad').value,
+                turno: document.getElementById('filtro-turno').value,
+                gobierno: document.getElementById('filtro-gobierno').value,
+                busqueda: document.getElementById('buscar-admin').value.toLowerCase()
+            };
+        }
+
+        function verDetalles(id) {
+            const solicitud = estadoApp.solicitudes.find(s => s.id === id);
+            if (!solicitud) return;
+
+            // Llenar los detalles en el modal
+            document.getElementById('detalle-nombre').textContent = `${solicitud.nombre} ${solicitud.primerApellido} ${solicitud.segundoApellido || ''}`;
+            document.getElementById('detalle-control').textContent = solicitud.numeroControl;
+            document.getElementById('detalle-curp').textContent = solicitud.curp || 'No especificado';
+            document.getElementById('detalle-especialidad').textContent = solicitud.especialidad;
+            document.getElementById('detalle-turno').textContent = solicitud.turno;
+            document.getElementById('detalle-grupo').textContent = solicitud.grupo || 'No especificado';
+            document.getElementById('detalle-institucion').textContent = solicitud.institucion;
+            document.getElementById('detalle-persona').textContent = solicitud.personaCargo || 'No especificado';
+            document.getElementById('detalle-puesto').textContent = solicitud.puesto || 'No especificado';
+            document.getElementById('detalle-profesion').textContent = solicitud.profesion || 'No especificado';
+            document.getElementById('detalle-gobierno').textContent = solicitud.tipoGobierno;
+            document.getElementById('detalle-periodo').textContent = `${solicitud.fechaInicio || 'No especificado'} - ${solicitud.fechaTermino || 'No especificado'}`;
+            document.getElementById('detalle-actividades').textContent = solicitud.actividades || 'No especificado';
+
+            document.getElementById('modal-detalle').classList.remove('hidden');
+        }
+
+        function cerrarModal() {
+            document.getElementById('modal-detalle').classList.add('hidden');
+        }
+
+        function eliminarSolicitud(id) {
+            if (!confirm('¿Está seguro de eliminar esta solicitud? Esta acción no se puede deshacer.')) {
+                return;
+            }
+            
+            estadoApp.solicitudes = estadoApp.solicitudes.filter(s => s.id !== id);
+            guardarDatos();
+            actualizarTablaSolicitudes();
+            actualizarEstadisticas();
+            alert('✅ Solicitud eliminada correctamente');
+        }
+
+        // GENERACIÓN DE LISTADOS
+        function generarListado() {
+            const especialidad = document.getElementById('listado-especialidad').value;
+            const turno = document.getElementById('listado-turno').value;
+            const tipoGobierno = document.getElementById('listado-tipo-gobierno').value;
+            
+            const solicitudesFiltradas = estadoApp.solicitudes.filter(s => {
+                return (
+                    (!especialidad || s.especialidad === especialidad) &&
+                    (!turno || s.turno === turno) &&
+                    (!tipoGobierno || s.tipoGobierno === tipoGobierno)
+                );
+            });
+            
+            const cuerpoListado = document.getElementById('cuerpo-listado');
+            
+            if (solicitudesFiltradas.length === 0) {
+                cuerpoListado.innerHTML = '<tr><td colspan="10" class="sin-resultados">No hay datos para mostrar</td></tr>';
+            } else {
+                cuerpoListado.innerHTML = solicitudesFiltradas.map((s, index) => `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${s.nombre}</td>
+                        <td>${s.primerApellido}</td>
+                        <td>${s.segundoApellido || ''}</td>
+                        <td>${s.numeroControl}</td>
+                        <td>${s.institucion}</td>
+                        <td>${s.personaCargo || 'No especificado'}</td>
+                        <td>${s.puesto || 'No especificado'}</td>
+                        <td>${s.profesion || 'No especificado'}</td>
+                        <td>${s.tipoGobierno}</td>
+                    </tr>
+                `).join('');
+            }
+            
+            document.getElementById('contenedor-listado').classList.remove('hidden');
+        }
+
+        function exportarExcel() {
+            const especialidad = document.getElementById('listado-especialidad').value;
+            const turno = document.getElementById('listado-turno').value;
+            const tipoGobierno = document.getElementById('listado-tipo-gobierno').value;
+            
+            const solicitudesFiltradas = estadoApp.solicitudes.filter(s => {
+                return (
+                    (!especialidad || s.especialidad === especialidad) &&
+                    (!turno || s.turno === turno) &&
+                    (!tipoGobierno || s.tipoGobierno === tipoGobierno)
+                );
+            });
+            
+            if (solicitudesFiltradas.length === 0) {
+                alert('❌ No hay datos para exportar');
+                return;
+            }
+            
+            const datosExportar = solicitudesFiltradas.map((s, index) => ({
+                '#': index + 1,
+                'Nombre': s.nombre,
+                'Primer Apellido': s.primerApellido,
+                'Segundo Apellido': s.segundoApellido || '',
+                'Número Control': s.numeroControl,
+                'Institución': s.institucion,
+                'Persona a Cargo': s.personaCargo || 'No especificado',
+                'Puesto': s.puesto || 'No especificado',
+                'Profesión': s.profesion || 'No especificado',
+                'Tipo Gobierno': s.tipoGobierno,
+                'Especialidad': s.especialidad,
+                'Turno': s.turno,
+                'Fecha Solicitud': s.fechaSolicitud
+            }));
+            
+            const worksheet = XLSX.utils.json_to_sheet(datosExportar);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Listado Servicio Social');
+            
+            const colWidths = [
+                { wch: 5 }, { wch: 15 }, { wch: 15 }, { wch: 15 },
+                { wch: 15 }, { wch: 20 }, { wch: 15 }, { wch: 15 },
+                { wch: 15 }, { wch: 12 }, { wch: 15 }, { wch: 10 }, { wch: 12 }
+            ];
+            worksheet['!cols'] = colWidths;
+            
+            const nombreArchivo = `servicio_social_${especialidad || 'todos'}_${turno || 'todos'}_${new Date().toISOString().split('T')[0]}.xlsx`;
+            XLSX.writeFile(workbook, nombreArchivo);
+        }
+
+        // ESTADÍSTICAS
+        function actualizarEstadisticas() {
+            document.getElementById('total-solicitudes').textContent = estadoApp.solicitudes.length;
+            
+            const hoy = new Date().toISOString().split('T')[0];
+            const solicitudesHoy = estadoApp.solicitudes.filter(s => s.fechaSolicitud === hoy).length;
+            document.getElementById('solicitudes-hoy').textContent = solicitudesHoy;
+            
+            // Calcular especialidad más solicitada
+            const especialidadesCount = {};
+            estadoApp.solicitudes.forEach(s => {
+                if (s.especialidad) {
+                    especialidadesCount[s.especialidad] = (especialidadesCount[s.especialidad] || 0) + 1;
+                }
+            });
+            
+            let topEspecialidad = '-';
+            let maxCount = 0;
+            
+            for (const [especialidad, count] of Object.entries(especialidadesCount)) {
+                if (count > maxCount) {
+                    maxCount = count;
+                    topEspecialidad = especialidad;
+                }
+            }
+            
+            document.getElementById('top-especialidad').textContent = topEspecialidad;
+        }
+
+        // BUZÓN DE CONTACTO
+        function actualizarBuzon() {
+            const buzonContainer = document.getElementById('buzon-mensajes');
+            
+            if (estadoApp.mensajes.length === 0) {
+                buzonContainer.innerHTML = '<div class="sin-resultados">No hay mensajes en el buzón</div>';
+                return;
+            }
+            
+            buzonContainer.innerHTML = estadoApp.mensajes.map((mensaje, index) => `
+                <div class="mensaje-item">
+                    <div class="mensaje-header">
+                        <span class="mensaje-nombre">${mensaje.nombre || 'Anónimo'}</span>
+                        <span class="mensaje-fecha">${mensaje.fecha || 'Fecha no disponible'}</span>
+                    </div>
+                    <div class="mensaje-asunto">${mensaje.asunto || 'Sin asunto'}</div>
+                    <div class="mensaje-contenido">${mensaje.mensaje || 'Sin mensaje'}</div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

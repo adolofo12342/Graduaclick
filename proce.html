@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Proceso de Solicitud - GradúaClick</title>
+
+    <!-- Usa tu stylesheet principal -->
+    <link rel="stylesheet" href="CSS/p1.css">
+
+    <!-- Font Awesome si ya lo usas en tu index -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Estilos específicos para esta página (pega al final de p1.css si prefieres) -->
+    <style>
+    /* ===========================
+       Estilos específicos: proceso
+       =========================== */
+
+    /* rehuso de contenedores de tu diseño principal */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Ajuste del header (usa tus clases originales) */
+    header.parte1 .caja1 {
+        align-items: center;
+    }
+
+    /* Sección principal */
+    .proceso-wrapper {
+        padding: 40px 0;
+        min-height: 70vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .proceso-section {
+        width: 100%;
+        max-width: 1100px;
+        background: rgb(255,255,255);
+        border-radius: 16px;
+        box-shadow: 0 6px 24px rgba(25,118,210,0.08);
+        padding: 28px;
+    }
+
+    .proceso-section h2 {
+        margin: 0 0 12px 0;
+        color: rgb(25,118,210);
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+    .periodo-info {
+        background: rgb(235,247,255);
+        border-left: 4px solid rgb(25,118,210);
+        padding: 14px;
+        border-radius: 10px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+        align-items: center;
+    }
+
+    .periodo-info .form-group {
+        min-width: 200px;
+    }
+
+    .periodo-info .badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 18px;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: .4px;
+    }
+
+    .badge-success { background: rgb(25,118,210); color: #fff; }
+    .badge-warning { background: #ffca28; color: #1f2a44; }
+    .badge-error { background: #ef5350; color: #fff; }
+
+    /* Countdown */
+    .countdown {
+        margin: 18px 0;
+        text-align: center;
+        padding: 22px;
+        background: linear-gradient(135deg, rgba(25,118,210,0.95), #123b6b);
+        color: #fff;
+        border-radius: 12px;
+    }
+    .countdown-number {
+        font-size: 48px;
+        font-weight: 900;
+        line-height: 1;
+    }
+    .countdown-label { font-weight: 600; opacity: .95; }
+
+    /* Timeline (pasos) */
+    .process-timeline {
+        margin-top: 20px;
+    }
+    .timeline-item {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 18px;
+    }
+    .timeline-number {
+        background: rgb(25,118,210);
+        color: white;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        flex-shrink: 0;
+        box-shadow: 0 6px 18px rgba(25,118,210,0.12);
+    }
+    .timeline-content h4 {
+        margin: 0 0 6px 0;
+        color: rgb(25,118,210);
+        font-size: 18px;
+    }
+    .timeline-content p, .timeline-content li {
+        color: rgb(68,68,68);
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    /* Documento preview */
+    .document-preview {
+        margin-top: 20px;
+        border-radius: 12px;
+        background: #fafafa;
+        padding: 16px;
+        border: 1px solid #e6eefb;
+    }
+    .document-preview-content {
+        background: white;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #e8eef9;
+        margin-top: 12px;
+    }
+    .full-form-image {
+        width: 100%;
+        max-width: 980px;
+        height: auto;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+
+    /* Important notes */
+    .important-notes {
+        margin-top: 18px;
+        padding: 14px;
+        border-radius: 10px;
+        background: #fff7e6;
+        border-left: 4px solid #ffc107;
+    }
+    .important-notes h3 { color: #8a6d00; margin-top: 0; }
+
+    /* Action buttons */
+    .action-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+    }
+    .action-buttons .btn {
+        text-decoration: none;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-weight: 700;
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+    }
+    .btn-success {
+        background: rgb(25,118,210);
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(25,118,210,0.12);
+    }
+    .btn-secondary {
+        background: #fff;
+        color: rgb(25,118,210);
+        border: 2px solid rgb(25,118,210);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 880px) {
+        .timeline-item {
+            flex-direction: column;
+            text-align: left;
+        }
+        .periodo-info {
+            gap: 8px;
+            align-items: stretch;
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER: reutiliza exactamente la estructura y clases de tu index -->
+    <header class="parte1">
+        <div class="caja1">
+            <div class="logochiquito">
+                <!-- Si tienes logo en IMG/JAGUJAGU.png úsalo -->
+                <img src="IMG/JAGUJAGU.png" alt="GradúaClick" style="width:48px;height:48px;border-radius:10px;">
+                <span class="nombremarca">GradúaClick</span>
+            </div>
+
+            <nav>
+                <ul class="listanav1" aria-label="Navegación principal">
+                    <li><a href="p1.html" class="icono1"><i class="fas fa-home" aria-hidden="true"></i> Inicio</a></li>
+                    <li><a href="formu.html" class="icono1"><i class="fas fa-edit" aria-hidden="true"></i> Llenar Solicitud</a></li>
+                </ul>
+            </nav>
+
+            <div class="iniciosecion">
+                <a href="#" class="acceso" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Acceder <i class="fas fa-caret-down"></i></a>
+                <div class="opciones" role="menu" aria-hidden="true">
+                    <a href="adminservi.html" class="admin" role="menuitem"><i class="fas fa-user-shield"></i> Administrador</a>
+                    <a href="Iniciar Sesión.html" class="iniciosecion2" role="menuitem"><i class="fas fa-user-graduate"></i> Alumno</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main class="proceso-wrapper">
+        <div class="proceso-section container" role="main">
+            <h2> Proceso de Solicitud de Servicio Social</h2>
+
+            <!-- Información del Período -->
+            <div class="periodo-info" aria-live="polite">
+                <div class="form-group">
+                    <strong>Fecha de inicio:</strong>
+                    <div id="fecha-inicio-proceso">—</div>
+                </div>
+                <div class="form-group">
+                    <strong>Fecha de cierre:</strong>
+                    <div id="fecha-fin-proceso">—</div>
+                </div>
+                <div class="form-group">
+                    <strong>Estado:</strong>
+                    <div id="estado-proceso" class="badge">—</div>
+                </div>
+            </div>
+
+            <!-- Countdown -->
+            <div class="countdown" role="status" aria-atomic="true">
+                <div class="countdown-number" id="dias-countdown">0</div>
+                <div class="countdown-label">DÍAS RESTANTES</div>
+            </div>
+
+            <!-- Timeline del Proceso -->
+            <div class="process-timeline" aria-label="Pasos a seguir">
+                <h3> Pasos a Seguir</h3>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-content">
+                        <h4>Preparación de Documentos</h4>
+                        <p>Reúne toda la información necesaria antes de comenzar:</p>
+                        <ul>
+                            <li>Tu CURP actualizada</li>
+                            <li>Número de control escolar</li>
+                            <li>Datos de la institución donde realizarás el servicio</li>
+                            <li>Información de contacto de la persona a cargo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-content">
+                        <h4>Llenado del Formulario</h4>
+                        <p>Completa cuidadosamente el formulario en línea con:</p>
+                        <ul>
+                            <li><strong>Datos personales</strong> exactos y completos</li>
+                            <li><strong>Información escolar</strong> actual</li>
+                            <li><strong>Datos de la institución</strong> verificados</li>
+                            <li><strong>Actividades</strong> que realizarás detalladas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-content">
+                        <h4>Generación del PDF Oficial</h4>
+                        <p>El sistema generará automáticamente el documento en formato oficial con:</p>
+                        <ul>
+                            <li>Logo y membreto del CETIS 120</li>
+                            <li>Formato estándar de solicitud</li>
+                            <li>Espacios para firmas y sellos</li>
+                            <li>Información completa y organizada</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-content">
+                        <h4>Entrega Física</h4>
+                        <p>Una vez descargado el PDF:</p>
+                        <ul>
+                            <li>Imprime el documento en hoja tamaño carta</li>
+                            <li>Entrega en la institución correspondiente</li>
+                            <li>Asegúrate de que firmen y sellen el documento</li>
+                            <li>Guarda una copia para tus registros</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">5</div>
+                    <div class="timeline-content">
+                        <h4>Seguimiento</h4>
+                        <p>Después de la entrega:</p>
+                        <ul>
+                            <li>Guarda tu número de control para consultas</li>
+                            <li>Verifica el estado de tu solicitud en el sistema</li>
+                            <li>Mantén comunicación con la institución</li>
+                            <li>Actualiza cualquier cambio en tu información</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        
+
+            <!-- Notas Importantes -->
+            <div class="important-notes">
+                <h3>⚠ Notas Importantes</h3>
+                <ul>
+                    <li>El servicio social es de <strong>480 horas</strong> y solo se puede realizar en instituciones de gobierno</li>
+                    <li>La <strong>carta de aceptación y liberación</strong> deben contar con: hoja membretada, firma y sello</li>
+                    <li>Verifica que todos los datos sean correctos antes de generar el PDF</li>
+                    <li>El sistema se cerrará automáticamente al finalizar el período establecido</li>
+                    <li>No se aceptarán solicitudes fuera del período activo</li>
+                </ul>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="action-buttons">
+                <a href="formu.html" class="btn btn-success" title="Comenzar Solicitud">
+                    <i class="fas fa-pen"></i>  Comenzar Solicitud
+                </a>
+                <a href="p1.html" class="btn btn-secondary" title="Volver al inicio">
+                    <i class="fas fa-home"></i>  Volver al Inicio
+                </a>
+                <button class="btn" onclick="window.print()" title="Imprimir guía">
+                    <i class="fas fa-print"></i> 🖨 Imprimir esta Guía
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER: reutiliza tu footer -->
+    <footer class="pieofi">
+        <div class="container">
+            <p>CETIS 120 - Sistema de Servicio Social &copy; 2025</p>
+            <p>Av. Francisco I. Madero Oriente No.4923. Col. Ciudad Industrial, C.P. 58200</p>
+            <p>Tel: 443 323 23 79 Ext. 103 | Email: cetis120.dir@dgeti.sems.gob.mx</p>
+        </div>
+    </footer>
+
+    <!-- LÓGICA: ProcesoSistema (corregida y segura) -->
+    <script>
+    // Evita errores si window.sistema no existe: crea un config de ejemplo.
+    (function () {
+        // Si tienes una variable global `sistema` que ya trae la configuración,
+        // se usa; si no, se crea una configuración de ejemplo para que la página funcione.
+        const defaultConfig = {
+            sistemaActivo: true,
+            periodo: {
+                inicio: new Date(new Date().getTime() - (2 * 24 * 60 * 60 * 1000)).toISOString(), // inicio hace 2 días
+                fin: new Date(new Date().getTime() + (10 * 24 * 60 * 60 * 1000)).toISOString() // fin en 10 días
+            }
+        };
+
+        // Si existe `window.sistema` y tiene .config, úsala; sino usa defaultConfig
+        const sistemaGlobal = (window.sistema && window.sistema.config) ? window.sistema : { config: defaultConfig, sistemaActivo: true };
+
+        class ProcesoSistema {
+            constructor(sistema) {
+                this.sistema = sistema;
+                this.inicializar();
+            }
+
+            inicializar() {
+                this.actualizarInfoPeriodo();
+                this.iniciarCountdown();
+                this.configurarEventListeners();
+            }
+
+            configurarEventListeners() {
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden) {
+                        this.actualizarInfoPeriodo();
+                    }
+                });
+                // Actualiza al cambiar fecha/hora del sistema cada minuto
+                this._autoInterval = setInterval(() => this.actualizarInfoPeriodo(), 60000);
+            }
+
+            actualizarInfoPeriodo() {
+                const config = this.sistema.config || {};
+                const inicioRaw = config.periodo && config.periodo.inicio;
+                const finRaw = config.periodo && config.periodo.fin;
+
+                // Si faltan datos, mostramos placeholders
+                if (!inicioRaw || !finRaw) {
+                    document.getElementById('fecha-inicio-proceso').textContent = 'No disponible';
+                    document.getElementById('fecha-fin-proceso').textContent = 'No disponible';
+                    document.getElementById('estado-proceso').textContent = 'SIN CONFIGURACIÓN';
+                    document.getElementById('estado-proceso').className = 'badge badge-warning';
+                    return;
+                }
+
+                const fechaInicio = new Date(inicioRaw);
+                const fechaFin = new Date(finRaw);
+                const hoy = new Date();
+
+                // Mostrar fechas en formato legible (es-MX)
+                document.getElementById('fecha-inicio-proceso').textContent =
+                    fechaInicio.toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                document.getElementById('fecha-fin-proceso').textContent =
+                    fechaFin.toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                // Estado
+                const estadoElement = document.getElementById('estado-proceso');
+                if (config.sistemaActivo && hoy >= fechaInicio && hoy <= fechaFin) {
+                    estadoElement.textContent = 'ACTIVO';
+                    estadoElement.className = 'badge badge-success';
+                } else if (config.sistemaActivo === false) {
+                    estadoElement.textContent = 'SISTEMA DESACTIVADO';
+                    estadoElement.className = 'badge badge-error';
+                } else if (hoy < fechaInicio) {
+                    estadoElement.textContent = 'PRÓXIMAMENTE';
+                    estadoElement.className = 'badge badge-warning';
+                } else {
+                    estadoElement.textContent = 'FINALIZADO';
+                    estadoElement.className = 'badge badge-error';
+                }
+            }
+
+            iniciarCountdown() {
+                const updateCountdown = () => {
+                    const config = this.sistema.config || {};
+                    const finRaw = config.periodo && config.periodo.fin;
+                    const countdownElement = document.getElementById('dias-countdown');
+
+                    if (!finRaw) {
+                        countdownElement.textContent = 'N/A';
+                        return;
+                    }
+
+                    const fechaFin = new Date(finRaw);
+                    const hoy = new Date();
+                    // Calcular diferencia en días completos
+                    const diffTime = fechaFin.setHours(23,59,59,999) - hoy;
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                    if (diffDays > 1) {
+                        countdownElement.textContent = diffDays;
+                    } else if (diffDays === 1) {
+                        countdownElement.textContent = '1 DÍA';
+                    } else if (diffDays === 0) {
+                        countdownElement.textContent = 'ÚLTIMO DÍA';
+                    } else {
+                        countdownElement.textContent = 'FINALIZADO';
+                    }
+                };
+
+                // Ejecutar ahora y luego cada 30 minutos para mantener la interfaz actualizada
+                updateCountdown();
+                this._countdownInterval = setInterval(updateCountdown, 30 * 60 * 1000);
+            }
+
+            // Métodos auxiliares (por si necesitas reutilizar)
+            verificarPeriodoActivo() {
+                const config = this.sistema.config || {};
+                const hoy = new Date();
+                const fechaInicio = new Date(config.periodo.inicio);
+                const fechaFin = new Date(config.periodo.fin);
+                return config.sistemaActivo && hoy >= fechaInicio && hoy <= fechaFin;
+            }
+
+            obtenerDiasRestantes() {
+                const config = this.sistema.config || {};
+                if (!config.periodo || !config.periodo.fin) return null;
+                const fechaFin = new Date(config.periodo.fin);
+                const hoy = new Date();
+                const diffTime = fechaFin - hoy;
+                return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            }
+        }
+
+        // Inicializamos con la configuración global (o con defaults)
+        window.procesoSistema = new ProcesoSistema(sistemaGlobal);
+
+        // Limpieza en unload
+        window.addEventListener('unload', () => {
+            if (window.procesoSistema._autoInterval) clearInterval(window.procesoSistema._autoInterval);
+            if (window.procesoSistema._countdownInterval) clearInterval(window.procesoSistema._countdownInterval);
+        });
+    })();
+    </script>
+</body>
+</html>

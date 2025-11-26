@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Solicitud - Servicio Social</title>
+
+<style>
+/* ================================
+   🔵 ESTILOS GENERALES
+   ================================ */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI', sans-serif;
+    background:#f4f6f9;
+    color:#333;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+/* ================================
+   🔵 HEADER
+   ================================ */
+header{
+    background:linear-gradient(120deg,#1a3a8f,#2c59b6);
+    padding:15px 0;
+    color:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+.header-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+.nav-link{
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+}
+
+.nav-link.active{
+    border-bottom:2px solid yellow;
+}
+
+.btn-admin{
+    background:#ffcc00;
+    padding:6px 15px;
+    border-radius:5px;
+    color:black;
+    font-weight:bold;
+}
+
+/* ================================
+   🔵 CABECERA DEL FORMULARIO
+   ================================ */
+.form-header{
+    background:white;
+    padding:20px;
+    margin-top:25px;
+    border-radius:10px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.08);
+}
+
+.progress-bar{
+    width:100%;
+    height:8px;
+    background:#dce2f0;
+    border-radius:5px;
+    margin:15px 0;
+}
+
+.progress-fill{
+    height:8px;
+    width:0%;
+    background:#2c59b6;
+    border-radius:5px;
+    transition:0.3s ease;
+}
+
+.step-indicator{
+    display:flex;
+    gap:15px;
+    margin-top:10px;
+}
+
+.step{
+    width:35px;
+    height:35px;
+    background:#ccc;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:50%;
+    font-weight:bold;
+}
+
+.step.active{
+    background:#2c59b6;
+}
+
+/* ================================
+   🔵 SECCIONES DEL FORMULARIO
+   ================================ */
+.form-section{
+    display:none;
+    background:white;
+    padding:25px;
+    margin-top:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.form-section.active{
+    display:block;
+}
+
+.form-row{
+    display:flex;
+    gap:20px;
+    margin-bottom:15px;
+}
+
+.form-group{
+    flex:1;
+}
+
+label{
+    font-weight:600;
+    margin-bottom:5px;
+    display:block;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:10px;
+    border:2px solid #d2d7e0;
+    border-radius:6px;
+    transition:0.2s;
+}
+
+input:focus, select:focus, textarea:focus{
+    border-color:#2c59b6;
+}
+
+/* ================================
+   🔵 BOTONES
+   ================================ */
+.btn{
+    padding:10px 20px;
+    border-radius:6px;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn-primary{ background:#2c59b6; color:white; }
+.btn-secondary{ background:#888; color:white; }
+.btn-success{ background:#28a745; color:white; }
+.btn-warning{ background:#f1c40f; color:white; }
+.btn-info{ background:#3498db; color:white; }
+
+/* ================================
+   🔵 FOOTER
+   ================================ */
+footer{
+    text-align:center;
+    padding:25px;
+    margin-top:40px;
+    color:#666;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+    <div class="container header-content">
+        <div class="logo-text">
+            <h1>CETIS 120</h1>
+            <p>Formulario de Solicitud</p>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="ser.social.html" class="nav-link">Inicio</a></li>
+                <li><a href="proce.html" class="nav-link">Proceso</a></li>
+                <li><a href="formu.html" class="nav-link active">Formulario</a></li>
+                <li><a href="adminservi.html" class="btn-admin">Panel Admin</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- ===========================
+         🔵 ENCABEZADO DEL FORMULARIO
+         =========================== -->
+    <div class="form-header">
+        <h2>Formulario de Solicitud de Servicio Social</h2>
+        <p>Llena todos los campos obligatorios (*)</p>
+
+        <div class="auto-save-indicator">
+            <span id="save-status">Guardado automáticamente</span>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="form-progress"></div>
+        </div>
+
+        <div class="step-indicator">
+            <div class="step active">1</div>
+            <div class="step">2</div>
+            <div class="step">3</div>
+            <div class="step">4</div>
+        </div>
+    </div>
+
+    <div id="alert-formulario"></div>
+
+    <!-- ===========================
+         🔵 FORMULARIO COMPLETO
+         =========================== -->
+    <form id="form-solicitud-completo">
+
+        <!-- ===========================
+             🔵 PASO 1
+             =========================== -->
+        <div class="form-section active" id="step-1">
+            <h3>Datos del alumno</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Primer apellido *</label>
+                    <input type="text" id="primer-apellido" required data-save="true">
+                </div>
+
+                <div class="form-group">
+                    <label>Segundo apellido *</label>
+                    <input type="text" id="segundo-apellido" required data-save="true">
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre(s) *</label>
+                    <input type="text" id="nombre" required data-save="true">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Edad *</label>
+                    <input type="number" id="edad" required data-save="true">
+                </div>
+
+                <div class="form-group">
+                    <label>Sexo *</label>
+                    <select id="sexo" required data-save="true">
+                        <option value="">Seleccione</option>
+                        <option>Hombre</option>
+                        <option>Mujer</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===========================
+             🔵 PASO 2
+             =========================== -->
+        <div class="form-section" id="step-2">
+            <h3>Datos escolares</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Número de control *</label>
+                    <input id="numero-control" required data-save="true">
+                </div>
+
+                <div class="form-group">
+                    <label>CURP *</label>
+                    <input id="curp" required data-save="true">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Carrera *</label>
+                    <select id="carrera" required data-save="true">
+                        <option value="">Seleccione</option>
+                        <option>Programación</option>
+                        <option>Mantenimiento</option>
+                        <option>Contabilidad</option>
+                        <option>Construcción</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Semestre *</label>
+                    <input id="semestre" required data-save="true">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===========================
+             🔵 PASO 3
+             =========================== -->
+        <div class="form-section" id="step-3">
+            <h3>Datos de la institución</h3>
+
+            <div class="form-group">
+                <label>Institución *</label>
+                <input id="institucion" required data-save="true">
+            </div>
+
+            <div class="form-group">
+                <label>Dirección *</label>
+                <input id="direccion-institucion" required data-save="true">
+            </div>
+
+            <div class="form-group">
+                <label>Teléfono *</label>
+                <input id="telefono-institucion" required data-save="true">
+            </div>
+        </div>
+
+        <!-- ===========================
+             🔵 PASO 4
+             =========================== -->
+        <div class="form-section" id="step-4">
+            <h3>Actividades a realizar *</h3>
+
+            <textarea id="actividades" rows="5" required data-save="true"></textarea>
+
+            <button type="button" class="btn btn-info" id="btn-load-data">Cargar datos guardados</button>
+            <button type="button" class="btn btn-warning" id="btn-clear-data">Borrar datos</button>
+        </div>
+
+        <!-- ===========================
+             🔵 BOTONES FINALES
+             =========================== -->
+        <div style="margin-top:20px;">
+            <button type="button" id="btn-prev" class="btn btn-secondary">Anterior</button>
+            <button type="button" id="btn-next" class="btn btn-primary">Siguiente</button>
+            <button type="submit" id="btn-submit" class="btn btn-success" style="display:none;">Enviar solicitud</button>
+        </div>
+
+    </form>
+
+</div>
+
+<footer>
+    <div class="container">
+        <p>CETIS 120 - Sistema de Servicio Social &copy; 2025</p>
+    </div>
+</footer>
+
+
+<script>
+/* =======================================
+   🔵 SISTEMA DE PASOS (PASO 1 → PASO 4)
+   ======================================= */
+let currentStep = 1;
+const totalSteps = 4;
+
+document.addEventListener("DOMContentLoaded", () => {
+    showStep(currentStep);
+    loadSavedData();
+    setupButtons();
+    setupAutoSave();
+});
+
+/* MOSTRAR PASO */
+function showStep(step){
+    document.querySelectorAll(".form-section").forEach(s => s.classList.remove("active"));
+    document.getElementById(`step-${step}`).classList.add("active");
+
+    document.querySelectorAll(".step").forEach((s,i)=>{
+        s.classList.toggle("active", i < step);
+    });
+
+    const progress = ((step -1) / (totalSteps-1)) * 100;
+    document.getElementById("form-progress").style.width = progress + "%";
+
+    updateButtons();
+}
+
+/* SIGUIENTE */
+function nextStep(){
+    if(validateStep(currentStep)){
+        currentStep++;
+        showStep(currentStep);
+    }
+}
+
+/* ANTERIOR */
+function prevStep(){
+    currentStep--;
+    showStep(currentStep);
+}
+
+/* BOTONES */
+function updateButtons(){
+    document.getElementById("btn-prev").style.display = currentStep === 1 ? "none" : "inline-block";
+    document.getElementById("btn-next").style.display = currentStep === totalSteps ? "none" : "inline-block";
+    document.getElementById("btn-submit").style.display = currentStep === totalSteps ? "inline-block" : "none";
+}
+
+function setupButtons(){
+    document.getElementById("btn-next").onclick = nextStep;
+    document.getElementById("btn-prev").onclick = prevStep;
+
+    document.getElementById("btn-load-data").onclick = loadSavedData;
+    document.getElementById("btn-clear-data").onclick = clearSavedData;
+
+    document.getElementById("form-solicitud-completo").onsubmit = function(e){
+        e.preventDefault();
+        alert("Solicitud enviada correctamente");
+    };
+}
+
+/* =======================================
+   🔵 VALIDACIÓN
+   ======================================= */
+function validateStep(step){
+    let valid = true;
+    const section = document.getElementById(`step-${step}`);
+    const fields = section.querySelectorAll("[required]");
+
+    fields.forEach(f => {
+        if(!f.value.trim()){
+            f.style.borderColor="red";
+            valid=false;
+        } else {
+            f.style.borderColor="#28a745";
+        }
+    });
+
+    return valid;
+}
+
+/* =======================================
+   🔵 AUTO-GUARDADO
+   ======================================= */
+let saveTimeout;
+
+function setupAutoSave(){
+    document.querySelectorAll("[data-save='true']").forEach(field=>{
+        field.addEventListener("input",()=>{
+            clearTimeout(saveTimeout);
+            document.getElementById("save-status").textContent="Guardando...";
+
+            saveTimeout = setTimeout(()=>{
+                saveForm();
+                document.getElementById("save-status").textContent="Guardado automáticamente";
+            },900);
+        });
+    });
+}
+
+function saveForm(){
+    const data={};
+    document.querySelectorAll("[data-save='true']").forEach(f=>{
+        data[f.id]=f.value;
+    });
+
+    localStorage.setItem("ss_form", JSON.stringify(data));
+}
+
+/* =======================================
+   🔵 CARGAR Y BORRAR DATOS
+   ======================================= */
+function loadSavedData(){
+    const saved = JSON.parse(localStorage.getItem("ss_form") || "{}");
+
+    for(let id in saved){
+        if(document.getElementById(id)){
+            document.getElementById(id).value = saved[id];
+        }
+    }
+
+    alert("Datos cargados correctamente");
+}
+
+function clearSavedData(){
+    localStorage.removeItem("ss_form");
+    document.getElementById("form-solicitud-completo").reset();
+    alert("Datos eliminados correctamente");
+}
+</script>
+
+</body>
+</html>

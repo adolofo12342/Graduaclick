@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial;
+    background: #e9f2ff;
+}
+
+.header {
+    background: #1976d2;
+    color: white;
+    padding: 18px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.form-container {
+    width: 60%;
+    margin: 40px auto;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+}
+
+/* Barra */
+.progress {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+#progress-bar {
+    width: 25%;
+    height: 6px;
+    background: #1976d2;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.step {
+    width: 35px;
+    height: 35px;
+    background: #d0e3ff;
+    color: #1976d2;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.step.active {
+    background: #1976d2;
+    color: white;
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #d7e3fc;
+    border-radius: 10px;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+textarea {
+    height: 120px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    color: #1976d2;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.next, .back, .submit {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.next, .submit {
+    background: #1976d2;
+    color: white;
+}
+
+.back {
+    background: #d4e6fc;
+    color: #1976d2;
+}
+
+.next:hover, .submit:hover {
+    background: #12569b;
+}

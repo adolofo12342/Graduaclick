@@ -1,0 +1,623 @@
+/* Estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Contenedor de inicio de sesión */
+.contenedor-inicio-sesion {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor-inicio-sesion h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    color: #1976d2;
+    font-weight: 600;
+}
+
+/* Formularios */
+.grupo-entrada {
+    margin-bottom: 20px;
+}
+
+.grupo-entrada label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.campo-con-icono {
+    position: relative;
+}
+
+.icono-input-contenedor {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0 10px;
+    transition: border-color 0.3s;
+}
+
+.icono-input-contenedor:focus-within {
+    border-color: #1976d2;
+}
+
+.icono-input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.input-con-icono {
+    border: none;
+    outline: none;
+    padding: 12px 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+button {
+    background: #1976d2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+button:hover {
+    background: #1565c0;
+}
+
+.mensaje-error {
+    color: #d32f2f;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+.enlaces {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.enlaces a {
+    color: #1976d2;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+/* Panel de administración */
+#admin-panel {
+    display: none;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.admin-titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #1976d2;
+}
+
+.admin-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin-usuario {
+    background: #e3f2fd;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+    color: #1976d2;
+}
+
+.btn-cerrar-sesion {
+    background: #d32f2f;
+}
+
+.btn-cerrar-sesion:hover {
+    background: #c62828;
+}
+
+/* Panel de estadísticas */
+.panel-estadisticas {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.panel-estadisticas h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+.tarjetas-estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.tarjeta-estadistica {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border-left: 4px solid #1976d2;
+}
+
+.estadistica-valor {
+    font-size: 2em;
+    font-weight: bold;
+    color: #1976d2;
+    margin-bottom: 5px;
+}
+
+.estadistica-etiqueta {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Panel de filtros */
+.panel-filtros {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.panel-filtros h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+#filtros-admin {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+#filtros-admin > div {
+    display: flex;
+    flex-direction: column;
+}
+
+#filtros-admin label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+}
+
+#filtros-admin input,
+#filtros-admin select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Panel de resultados */
+.panel-resultados {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.panel-resultados h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+.reporte-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.reporte-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #1976d2;
+}
+
+.reporte-card .titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-directa {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.badge-prototipo {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.badge-otro {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.detalle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.acciones-card {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-ver {
+    background: #1976d2;
+    padding: 8px 15px;
+    font-size: 13px;
+}
+
+.btn-eliminar {
+    background: #d32f2f;
+    padding: 8px 15px;
+    font-size: 13px;
+}
+
+.sin-resultados {
+    text-align: center;
+    color: #666;
+    padding: 40px;
+    font-style: italic;
+}
+
+/* Panel de documentos */
+.panel-documentos {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.panel-documentos h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+.documentos-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.documento-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #4caf50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.documento-info strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.documento-info div {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.documento-acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-documentos {
+    background: #4caf50;
+    padding: 8px 15px;
+    font-size: 13px;
+}
+
+.btn-documentos:hover {
+    background: #45a049;
+}
+
+/* Modales */
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-content {
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h2 {
+    color: #333;
+    font-weight: 600;
+}
+
+.modal-cerrar {
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-cerrar:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Modal de documentos */
+.modal-content-documentos {
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.info-estudiante {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #4caf50;
+}
+
+.info-estudiante h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.info-estudiante div {
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.lista-documentos {
+    display: grid;
+    gap: 10px;
+}
+
+.documento-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.documento-nombre {
+    font-weight: 500;
+    color: #333;
+}
+
+.documento-acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-descargar {
+    background: #4caf50;
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.btn-ver-doc {
+    background: #2196f3;
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+/* Modal de listado completo */
+.modal-content-fullscreen {
+    background: white;
+    border-radius: 10px;
+    width: 95%;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header-fullscreen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-acciones {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-exportar-excel {
+    background: #2e7d32;
+    padding: 10px 15px;
+}
+
+.btn-guardar-cambios {
+    background: #ff9800;
+    padding: 10px 15px;
+}
+
+.btn-guardar-cambios:hover {
+    background: #f57c00;
+}
+
+.modal-body-fullscreen {
+    flex: 1;
+    padding: 0;
+}
+
+.tabla-listado {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-listado th,
+.tabla-listado td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabla-listado th {
+    background: #f5f7fa;
+    font-weight: 600;
+    color: #333;
+    position: sticky;
+    top: 0;
+}
+
+.tabla-listado tr:hover {
+    background: #f8f9fa;
+}
+
+.no-data {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .admin-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .tarjetas-estadisticas {
+        grid-template-columns: 1fr;
+    }
+    
+    #filtros-admin {
+        grid-template-columns: 1fr;
+    }
+    
+    .documentos-lista {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-header-fullscreen {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .modal-acciones {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

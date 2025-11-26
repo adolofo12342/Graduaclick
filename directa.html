@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GradúaClick</title>
+<link rel="stylesheet" href="CSS/directa.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<div class="form-tramite">
+  <div class="form-header">
+    <div>
+      <div class="form-title">Recepción de documentos para trámite de titulación automática</div>
+      <div>Oficina de Titulación</div>
+    </div>
+  </div>
+
+  <form id="formTitulacion" autocomplete="off">
+    <div class="form-section-title">Datos personales</div>
+
+    <div class="form-group"><label for="fecha">Fecha:</label><input type="date" id="fecha" name="fecha" required readonly></div>
+
+    <div class="form-group"><label for="turno">Turno:</label>
+      <select id="turno" name="turno" required>
+        <option value="">Seleccione turno</option>
+        <option value="Matutino">Matutino</option>
+        <option value="Vespertino">Vespertino</option>
+      </select>
+    </div>
+
+    <div class="form-group"><label for="grupo">Grupo:</label>
+      <select id="grupo" name="grupo" required>
+        <option value="">Seleccione grupo</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+      </select>
+    </div>
+
+    <div class="form-group"><label for="primer_apellido">Apellido paterno:</label><input type="text" id="primer_apellido" name="primer_apellido" required placeholder="Apellido paterno"></div>
+    <div class="form-group"><label for="segundo_apellido">Apellido materno:</label><input type="text" id="segundo_apellido" name="segundo_apellido" required placeholder="Apellido materno"></div>
+    <div class="form-group"><label for="nombre">Nombre(s):</label><input type="text" id="nombre" name="nombre" required placeholder="Nombre(s)"></div>
+
+    <div class="form-group"><label for="especialidad">Especialidad:</label>
+      <select id="especialidad" name="especialidad" required>
+        <option value="">Seleccione una opción</option>
+        <option value="programación">Programación</option>
+        <option value="puericultura">Puericultura</option>
+        <option value="servicios de hospedaje">Servicios de Hospedaje</option>
+        <option value="ofimática">Ofimática</option>
+        <option value="soporte y mantenimiento">Soporte y Mantenimiento</option>
+        <option value="contabilidad">Contabilidad</option>
+        <option value="ventas">Ventas</option>
+        <option value="administración de recursos humanos">Administración de Recursos Humanos</option>
+        <option value="electrónica">Electrónica</option>
+      </select>
+    </div>
+
+    <div class="form-group"><label for="no_de_control">No. de Control:</label><input type="text" id="no_de_control" name="no_de_control" required placeholder="Ejemplo: 22316061200697"></div>
+    <div class="form-group"><label for="fecha_nacimiento">Fecha de nacimiento:</label><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required></div>
+
+    <div class="form-group"><label for="nacionalidad">Nacionalidad:</label>
+      <select id="nacionalidad" name="nacionalidad" required>
+        <option value="">Seleccione nacionalidad</option>
+        <option value="Mexicana">Mexicana</option>
+        <option value="Otra">Otra</option>
+      </select>
+    </div>
+
+    <div class="form-group"><label for="estado_nacimiento">Estado de Nacimiento:</label>
+      <select id="estado_nacimiento" name="estado_nacimiento" required>
+        <option value="">Seleccione estado</option>
+        <!-- Los estados se cargarán dinámicamente -->
+      </select>
+    </div>
+
+    <div class="form-group"><label for="municipio_nacimiento">Municipio:</label>
+      <select id="municipio_nacimiento" name="municipio_nacimiento" required disabled>
+        <option value="">Primero seleccione un estado</option>
+      </select>
+    </div>
+
+    <div class="form-group"><label for="no_de_celular">No. de Celular:</label><input type="tel" id="no_de_celular" name="no_de_celular" required pattern="[0-9]{10}" placeholder="10 dígitos"></div>
+    <div class="form-group"><label for="no_de_tel_adicional">No. de Tel. Adicional:</label><input type="tel" id="no_de_tel_adicional" name="no_de_tel_adicional" pattern="[0-9]{10}" placeholder="10 dígitos (opcional)"></div>
+    <div class="form-group"><label for="correo_electronico">Correo Electrónico:</label><input type="email" id="correo_electronico" name="correo_electronico" required placeholder="ejemplo@correo.com"></div>
+
+    <div class="form-section-title">Documentos a entregar</div>
+    <div class="doc-list">
+      <div class="doc-item"><input type="checkbox" id="actaNacimiento" name="actaNacimiento" required><label for="actaNacimiento">Acta de Nacimiento</label><input type="file" id="fileActaNacimiento" name="fileActaNacimiento" accept=".pdf,.jpg,.png" required></div>
+      <div class="doc-item"><input type="checkbox" id="curpDoc" name="curpDoc" required><label for="curpDoc">CURP</label><input type="file" id="fileCurp" name="fileCurp" accept=".pdf,.jpg,.png" required></div>
+      <div class="doc-item"><input type="checkbox" id="certificadoSecundaria" name="certificadoSecundaria" required><label for="certificadoSecundaria">Certificado de Secundaria</label><input type="file" id="fileCertificadoSecundaria" name="fileCertificadoSecundaria" accept=".pdf,.jpg,.png" required></div>
+      <div class="doc-item"><input type="checkbox" id="certificadoBachillerato" name="certificadoBachillerato" required><label for="certificadoBachillerato">Certificado de Bachillerato</label><input type="file" id="fileCertificadoBachillerato" name="fileCertificadoBachillerato" accept=".pdf,.jpg,.png" required></div>
+      <div class="doc-item"><input type="checkbox" id="pagoBancomer" name="pagoBancomer" required><label for="pagoBancomer">Pago generado en BBVA (original y dos copias)</label><input type="file" id="filePagoBancomer" name="filePagoBancomer" accept=".pdf,.jpg,.png" required></div>
+    </div>
+
+    <div class="botones">
+      <button type="submit" class="botoncomenzar">Enviar</button>
+      <button type="button" class="botondocumentacion" id="generarPDF">Generar PDF</button>
+    </div>
+    <input type="hidden" name="tipo_titulacion" value="directa">
+  </form>
+</div>
+
+<script src="JS/directa.js"></script>
+</body>
+</html>

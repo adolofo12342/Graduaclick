@@ -1,0 +1,519 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, rgb(227, 240, 255) 0%, rgb(249, 249, 249) 100%);
+    min-height: 100vh;
+}
+
+.parte1 {
+    background: rgb(255, 255, 255);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.caja1 {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logochiquito {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logochiquito img {
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nombremarca {
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(25, 118, 210);
+}
+
+.listanav1 {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.icono1 {
+    text-decoration: none;
+    color: rgb(51, 51, 51);
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+}
+
+.icono1::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: rgb(25, 118, 210);
+    transition: width 0.3s;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+}
+
+.icono1:hover {
+    color: rgb(25, 118, 210);
+}
+
+.icono1:hover::after {
+    width: 100%;
+}
+
+.iniciosecion {
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.iniciosecion .acceso {
+    background: rgb(25, 118, 210);
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    border-radius: 24px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.iniciosecion .acceso:hover {
+    background: rgb(18, 94, 167);
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.15);
+}
+
+.iniciosecion .opciones {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 110%;
+    background: rgb(255, 255, 255);
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    z-index: 200;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+    padding: 8px 0;
+}
+
+.iniciosecion:hover .opciones,
+.iniciosecion:focus-within .opciones {
+    display: flex;
+}
+
+.admin, .iniciosecion2 {
+    color: rgb(25, 118, 210);
+    padding: 12px 18px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    background: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+    transition: background 0.2s, color 0.2s;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.admin:hover, .iniciosecion2:hover {
+    background: rgb(240, 244, 250);
+    color: rgb(18, 94, 167);
+}
+
+.caja2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    position: relative;
+}
+
+.partedeenmedio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    gap: 40px;
+}
+
+.texto1 {
+    max-width: 550px;
+}
+
+.titulo {
+    font-size: 48px;
+    color: rgb(25, 118, 210);
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+.descripcion {
+    font-size: 20px;
+    color: rgb(68, 68, 68);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.botones {
+    display: flex;
+    gap: 20px;
+}
+
+.botoncomenzar, .botondocu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgb(25, 118, 210);
+    color: rgb(255, 255, 255);
+    padding: 14px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.botondocu {
+    background: rgb(255, 255, 255);
+    color: rgb(25, 118, 210);
+    border: 2px solid rgb(25, 118, 210);
+}
+
+.botoncomenzar:hover, .botondocu:hover {
+    background: rgb(18, 94, 167);
+    color: rgb(255, 255, 255);
+    transform: translateY(-2px);
+}
+
+.botondocu:hover {
+    background: rgb(25, 118, 210);
+    color: rgb(255, 255, 255);
+}
+
+.logogrande {
+    position: relative;
+    display: inline-block;
+}
+
+.logogrande img {
+    display: block;
+    width: 320px;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(25, 118, 210, 0.10);
+}
+
+.odjetivos {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: rgb(255, 255, 255);
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(25, 118, 210, 0.07);
+    padding: 30px 40px;
+}
+
+.odjetivos h3 {
+    font-size: 24px;
+    color: rgb(25, 118, 210);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.odjetivos ol {
+    padding-left: 20px;
+}
+
+.odjetivos li {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: rgb(68, 68, 68);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.odjetivos li i {
+    color: rgb(25, 118, 210);
+    font-size: 20px;
+}
+
+.pieofi {
+    background: rgb(25, 118, 210);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 16px;
+}
+
+.eslogan {
+    color: rgb(25, 118, 210);
+    font-weight: 600;
+}
+
+/* Nuevos estilos para las secciones adicionales */
+.seccion {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.seccion-titulo {
+    font-size: 36px;
+    color: rgb(25, 118, 210);
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.tarjeta {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.08);
+    padding: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(25, 118, 210, 0.12);
+}
+
+.tarjeta-icono {
+    width: 60px;
+    height: 60px;
+    background: rgba(25, 118, 210, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tarjeta-icono i {
+    font-size: 28px;
+    color: rgb(25, 118, 210);
+}
+
+.tarjeta h3 {
+    font-size: 22px;
+    color: rgb(25, 118, 210);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.tarjeta p {
+    color: rgb(68, 68, 68);
+    line-height: 1.6;
+}
+
+.proceso-pasos {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    position: relative;
+}
+
+.proceso-pasos::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgb(25, 118, 210);
+    z-index: 1;
+}
+
+.paso {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.paso-numero {
+    width: 60px;
+    height: 60px;
+    background: rgb(25, 118, 210);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.paso h4 {
+    font-size: 18px;
+    color: rgb(25, 118, 210);
+    margin-bottom: 10px;
+}
+
+.paso p {
+    color: rgb(68, 68, 68);
+    font-size: 16px;
+}
+
+.contacto-contenido {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.info-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item-contacto {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.icono-contacto {
+    width: 50px;
+    height: 50px;
+    background: rgba(25, 118, 210, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icono-contacto i {
+    font-size: 20px;
+    color: rgb(25, 118, 210);
+}
+
+.texto-contacto h4 {
+    margin: 0 0 5px;
+    color: rgb(25, 118, 210);
+}
+
+.texto-contacto p {
+    margin: 0;
+    color: rgb(68, 68, 68);
+}
+
+.formulario-contacto {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.08);
+}
+
+.grupo-formulario {
+    margin-bottom: 20px;
+}
+
+.grupo-formulario label {
+    display: block;
+    margin-bottom: 8px;
+    color: rgb(25, 118, 210);
+    font-weight: 500;
+}
+
+.grupo-formulario input,
+.grupo-formulario textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid rgba(25, 118, 210, 0.3);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario textarea:focus {
+    outline: none;
+    border-color: rgb(25, 118, 210);
+}
+
+.botonenviar {
+    background: rgb(25, 118, 210);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.botonenviar:hover {
+    background: rgb(18, 94, 167);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .partedeenmedio {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .botones {
+        justify-content: center;
+    }
+    
+    .listanav1 {
+        display: none;
+    }
+    
+    .proceso-pasos {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .proceso-pasos::before {
+        display: none;
+    }
+    
+    .contacto-contenido {
+        grid-template-columns: 1fr;
+    }
+}
